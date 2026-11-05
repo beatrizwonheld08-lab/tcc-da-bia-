@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class CoinCollector : MonoBehaviour
 {
-    public int moedas = 0;
+    public GameManager gameManager;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            moedas++;
-
-            Debug.Log("Moedas coletadas: " + moedas);
+            gameManager.AdicionarMoeda();
 
             Destroy(other.gameObject);
         }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class PlayerCollision : MonoBehaviour
             gameOver = true;
 
             Time.timeScale = 0f;
-
+            Morrer();
             Debug.Log("GAME OVER!");
         }
+    }
+    void Morrer()
+    {
+        SceneManager.LoadScene("MenuMorte");
     }
 }

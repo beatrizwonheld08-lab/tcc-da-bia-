@@ -7,6 +7,7 @@ public class CoinSpawner : MonoBehaviour
 {
     public GameObject coinPrefab;
     public float tempoEntreMoedas = 1.5f;
+    public float[] posicoesPistas = { -3.5f, 0f, 3.5f };
 
     private float contador;
 
@@ -23,8 +24,9 @@ public class CoinSpawner : MonoBehaviour
 
     void CriarMoeda()
     {
-        int pista = Random.Range(-1, 2);
-        float posicaoX = pista * 2f;
+        int pista = Random.Range(0, posicoesPistas.Length);
+
+        float posicaoX = posicoesPistas[pista];
 
         Vector3 posicao = new Vector3(
             posicaoX,

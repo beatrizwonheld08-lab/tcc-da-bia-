@@ -169,7 +169,10 @@ MonoBehaviour:
   coletavelRaroPrefab: {fileID: 9015728609251941956, guid: 734dc842964823a4ca6ca68cbdebc66b, type: 3}
   tempoEntreTentativas: 10
   chanceDeAparecer: 100
-  distanciaEntrePistas: 2
+  posicoesPistas:
+  - -3.5
+  - 0
+  - 3.5
 --- !u!1 &354104715
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +853,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 2958479839703284473, guid: a792ccba09f7ad1419e1d9219100c612, type: 3}
   tempoEntreObstaculos: 1.5
+  posicoesPistas:
+  - -3.5
+  - 0
+  - 3.5
 --- !u!1 &955065951
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1287078481
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1018,7 +1025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1321807390
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1335,6 +1342,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 7422587225586929205, guid: 19a7a8f268aee244bb189d307cc9bfb0, type: 3}
   tempoEntreMoedas: 1.5
+  posicoesPistas:
+  - -3.5
+  - 0
+  - 3.5
 --- !u!4 &1755926855
 Transform:
   m_ObjectHideFlags: 0
@@ -1392,7 +1403,7 @@ Transform:
   m_GameObject: {fileID: 1793615706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 269.68423, y: 157.71631, z: -2.0819755}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1803,7 +1814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadePista: 5
-  distanciaEntrePistas: 2
+  distanciaEntrePistas: 3.5
 --- !u!114 &2049663688
 MonoBehaviour:
   m_ObjectHideFlags: 0

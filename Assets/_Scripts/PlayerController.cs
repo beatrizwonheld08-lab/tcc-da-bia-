@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float velocidadePista = 10f;
-    public float distanciaEntrePistas = 2f;
+    public float distanciaEntrePistas = 3.5f;
 
     private int pistaAtual = 0;
 

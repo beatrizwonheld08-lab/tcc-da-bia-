@@ -12,7 +12,7 @@ public class RareItemSpawner : MonoBehaviour
     [Range(0f, 100f)]
     public float chanceDeAparecer = 10f;
 
-    public float distanciaEntrePistas = 2f;
+    public float[] posicoesPistas = { -3.5f, 0f, 3.5f };
 
     private float contador = 0f;
 
@@ -33,9 +33,9 @@ public class RareItemSpawner : MonoBehaviour
 
         if (sorteio < chanceDeAparecer)
         {
-            int pista = Random.Range(-1, 2);
+            int pista = Random.Range(0, posicoesPistas.Length);
 
-            float posicaoX = pista * distanciaEntrePistas;
+            float posicaoX = posicoesPistas[pista];
 
             Vector3 posicao = new Vector3(
                 posicaoX,

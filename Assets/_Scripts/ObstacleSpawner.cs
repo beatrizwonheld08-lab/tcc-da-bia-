@@ -8,6 +8,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     public float tempoEntreObstaculos = 1.5f;
 
+    public float[] posicoesPistas = { -3.5f, 0f, 3.5f };
+
     private float contador;
 
     void Update()
@@ -23,9 +25,9 @@ public class ObstacleSpawner : MonoBehaviour
 
     void CriarObstaculo()
     {
-        int pista = Random.Range(-1, 2);
+        int pista = Random.Range(0, posicoesPistas.Length);
 
-        float posicaoX = pista * 2f;
+        float posicaoX = posicoesPistas[pista];
 
         Vector3 posicao = new Vector3(
             posicaoX,

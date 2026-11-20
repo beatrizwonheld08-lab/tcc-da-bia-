@@ -1,17 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 
 using UnityEngine;
 
 public class CoinCollector : MonoBehaviour
 {
-    public GameManager gameManager;
-
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            gameManager.AdicionarMoeda();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AdicionarMoeda();
+
+                Debug.Log("Moeda coletada!");
+            }
+            else
+            {
+                Debug.LogWarning(
+                    "CoinCollector: GameManager não encontrado!"
+                );
+
+                return;
+            }
 
             Destroy(other.gameObject);
         }

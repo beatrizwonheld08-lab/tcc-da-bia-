@@ -1,15 +1,18 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Security;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [Header("Interface")]
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI coinText;
+
+    [Header("Nome da cena atual")]
+    [SerializeField] private string gameNameScene = "Game";
 
     [Header("Pontuação")]
     public float pontosPorSegundo = 10f;
@@ -17,26 +20,22 @@ public class GameManager : MonoBehaviour
     private float pontuacao = 0f;
     private int moedas = 0;
 
-    private bool partidaAtiva = false;
-
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
     {
-        if (Instance == this)
-        {
-            SceneManager.sceneLoaded += AoCarregarCena;
-        }
+        SceneManager.sceneLoaded += AoCarregarCena;
     }
 
     private void OnDisable()
@@ -44,55 +43,47 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= AoCarregarCena;
     }
 
+    // NOVO: configura a primeira cena
     private void Start()
     {
-        // Configura a primeira cena caso o evento
-        // sceneLoaded não tenha sido recebido.
-        if (!partidaAtiva &&
-            SceneManager.GetActiveScene().name == "Jogo")
-        {
-            IniciarPartida();
-        }
+        ConfigurarCena(SceneManager.GetActiveScene());
     }
 
     private void AoCarregarCena(
         Scene cena,
         LoadSceneMode modo)
     {
-        if (cena.name == "Jogo")
+        ConfigurarCena(cena);
+    }
+
+    // NOVO: centraliza a configuração da cena
+    private void ConfigurarCena(Scene cena)
+    {
+        Time.timeScale = 1f;
+
+        if (cena.name == gameNameScene)
         {
-            IniciarPartida();
+            pontuacao = 0f;
+            moedas = 0;
+
+            ConectarInterface();
+            AtualizarInterface();
         }
         else
         {
-            partidaAtiva = false;
             scoreText = null;
             coinText = null;
         }
     }
 
-    private void IniciarPartida()
-    {
-        Time.timeScale = 1f;
-
-        pontuacao = 0f;
-        moedas = 0;
-
-        partidaAtiva = true;
-
-        ConectarInterface();
-        AtualizarInterface();
-
-        Debug.Log("GameManager: partida iniciada!");
-    }
+    // NOVO: procura os textos da gameplay
 
     private void ConectarInterface()
     {
+        TextMeshProUGUI[] textos = FindObjectsOfType<TextMeshProUGUI>(true);
+
         scoreText = null;
         coinText = null;
-
-        TextMeshProUGUI[] textos =
-            FindObjectsOfType<TextMeshProUGUI>(true);
 
         foreach (TextMeshProUGUI texto in textos)
         {
@@ -109,45 +100,35 @@ public class GameManager : MonoBehaviour
 
         if (scoreText == null)
         {
-            Debug.LogWarning(
-                "GameManager: ScoreText não encontrado!"
-            );
+            Debug.LogWarning("ScoreText não encontrado!");
         }
 
         if (coinText == null)
         {
-            Debug.LogWarning(
-                "GameManager: CoinText não encontrado!"
-            );
+            Debug.LogWarning("CoinText não encontrado!");
         }
     }
 
+
     private void Update()
     {
-        if (!partidaAtiva)
+        if (SceneManager.GetActiveScene().name != gameNameScene)
             return;
 
-        // Aumenta os pontos continuamente
         pontuacao += pontosPorSegundo * Time.deltaTime;
 
-        // Tenta reconectar os textos caso estejam vazios
         if (scoreText == null || coinText == null)
         {
             ConectarInterface();
         }
 
         AtualizarInterface();
+
     }
 
     public void AdicionarMoeda()
     {
-        if (!partidaAtiva)
-            return;
-
         moedas++;
-
-        Debug.Log("Moedas coletadas: " + moedas);
-
         AtualizarInterface();
     }
 
@@ -165,8 +146,4 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PararPartida()
-    {
-        partidaAtiva = false;
-    }
 }
